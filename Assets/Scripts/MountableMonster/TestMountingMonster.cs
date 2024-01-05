@@ -39,7 +39,8 @@ namespace MountableMonster
             for (int i = 1; i < parts.Length; i++)
             {
                 var connectToPart = parts[spawnParts[i].connectToPartId];
-                
+                parts[i].transform.SetParent(connectToPart.transform);
+
                 connectToPart.ConnectMonsterPartToConnection(spawnParts[i].connectToConnectionId, parts[i]);
             }
         }

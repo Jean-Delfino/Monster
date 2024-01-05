@@ -16,7 +16,6 @@ namespace MountableMonster
         {
             connection.ConnectPart(monsterPart);
             
-            transform.position = connection.transform.position;
         }
         
         public void SetConnected(bool state)
@@ -27,6 +26,11 @@ namespace MountableMonster
         public void SetRotation(Vector3 rotation)
         {
             transform.rotation = Quaternion.Euler(rotation);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
         }
     }
 }
