@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Actor.Components.Modifiers
+namespace Actors.Components.Modifiers
 {
     public abstract class Modifier : ScriptableObject
     {

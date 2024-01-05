@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using Actor.Components.Modifiers;
+using Actors.Components.Modifiers;
 using UnityEngine;
 
-namespace Actor.Components.Attributes
+namespace Actors.Components.Attributes
 {
-    [CreateAssetMenu(menuName = "Game Design/Components/Attributes Component")]
-    public class AttributeComponent : ScriptableObject
+    [CreateAssetMenu(menuName = "Monster/Game-Design/Components/Attributes Component")]
+    public class AttributeComponent : Component
     {
         [Serializable]
         public class AttributeDefinition
         {
+#if UNITY_EDITOR
+            public string name;
+#endif
+            
             public AttributeGroup groupAttribute;
             public float minValue;
             public float maxValue;
@@ -24,10 +28,21 @@ namespace Actor.Components.Attributes
         [SerializeField] protected AttributeDefinition[] baseAttributes;
         private readonly Dictionary<Attribute, AttributeDefinition> _attributesLookup = new();
 
+        public override void Setup()
+        {
+            foreach (var description in baseAttributes)
+            {
+                var att = description.groupAttribute.Attribute;
+                if (_attributesLookup.ContainsKey(att)) continue;
 
+                description.groupAttribute.Setup();
+                _attributesLookup.Add(att, description);
+            }
+        }
+        
         public float GetAttributeValue(Attribute attribute)
         {
-            if (_attributesLookup.ContainsKey(attribute)) return -1;
+            if (!_attributesLookup.ContainsKey(attribute)) return -1;
 
             var groupValue = _attributesLookup[attribute].groupAttribute;
             var value = groupValue.GetValueAfterConstantlyChangingModifiers();
@@ -36,40 +51,30 @@ namespace Actor.Components.Attributes
             
             return value;
         }
-        
-        public void AttributesSetup()
-        {
-            foreach (var description in baseAttributes)
-            {
-                var att = description.groupAttribute.Attribute;
-                if (_attributesLookup.ContainsKey(att)) continue;
-
-                _attributesLookup.Add(att, description);
-            }
-        }
 
         public void AddModifier(Attribute attribute, Modifier modifier)
         {
-            if (_attributesLookup.ContainsKey(attribute)) return;
+            if (!_attributesLookup.ContainsKey(attribute)) return;
 
             var groupValue =  _attributesLookup[attribute].groupAttribute;
-            var value = groupValue.GetValue();
-            
-            groupValue.AddModifier(modifier.Priority, modifier.GetModifier());
-
-            if (value != groupValue.GetValue()) SetAttributesDependents(attribute);
+            ExecuteModifierChange(groupValue.AddModifier, groupValue, attribute, modifier);
         }
 
         public void RemoveModifier(Attribute attribute, Modifier modifier)
         {
-            if (_attributesLookup.ContainsKey(attribute)) return;
+            if (!_attributesLookup.ContainsKey(attribute)) return;
             
             var groupValue =  _attributesLookup[attribute].groupAttribute;
-            var value = groupValue.GetValue();
-            
-            groupValue.RemoveModifier(modifier.Priority, modifier.GetModifier());
+            ExecuteModifierChange(groupValue.RemoveModifier, groupValue, attribute, modifier);
+        }
 
-            if (value != groupValue.GetValue()) SetAttributesDependents(attribute);
+        private void ExecuteModifierChange(Action<int, Func<float, float>> action, AttributeGroup group, Attribute attribute, Modifier modifier)
+        {
+            var value = group.GetValue();
+            
+            action.Invoke(modifier.Priority, modifier.GetModifier());
+
+            if (value != group.GetValue()) SetAttributesDependents(attribute);
         }
 
         private void SetAttributesDependents(Attribute att)

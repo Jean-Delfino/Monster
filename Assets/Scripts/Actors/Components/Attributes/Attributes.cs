@@ -1,4 +1,4 @@
-﻿namespace Actor.Components.Attributes
+﻿namespace Actors.Components.Attributes
 {
     public enum Attribute
     {
@@ -12,5 +12,6 @@
         DodgeChange = 7,
         Health = 8,
         Mana = 9,
+        Speed = 10,
     }
 }

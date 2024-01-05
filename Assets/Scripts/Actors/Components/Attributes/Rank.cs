@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Actor.Components.Attributes
+namespace Actors.Components.Attributes
 {
     public class Rank
     {

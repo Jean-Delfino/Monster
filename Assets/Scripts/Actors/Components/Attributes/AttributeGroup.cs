@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Actor.Components.Attributes
+namespace Actors.Components.Attributes
 {
     [Serializable]
     public class AttributeGroup
