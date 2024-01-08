@@ -15,6 +15,8 @@ namespace MountableMonster
             public MonsterPart part;
             public int connectToPartId;
             public int connectToConnectionId;
+
+            public int connectionId;
         }
 
         [SerializeField] private SpawnPart[] spawnParts;
@@ -41,7 +43,7 @@ namespace MountableMonster
                 var connectToPart = parts[spawnParts[i].connectToPartId];
                 parts[i].transform.SetParent(connectToPart.transform);
 
-                connectToPart.ConnectMonsterPartToConnection(spawnParts[i].connectToConnectionId, parts[i]);
+                connectToPart.ConnectMonsterPartToConnection(spawnParts[i].connectToConnectionId, parts[i], spawnParts[i].connectionId);
             }
         }
         

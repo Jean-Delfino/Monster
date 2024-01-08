@@ -7,15 +7,20 @@ namespace MountableMonster
         [SerializeField] private PartConnection[] connections;
 
         private bool _isConnected = false;
-        public void ConnectMonsterPartToConnection(int connectionIndex, MonsterPart monsterPart)
+        
+        public void SimpleConnect(MonsterPart monsterPart, PartConnection connection)
         {
-            ConnectMonsterPartToConnection(connections[connectionIndex], monsterPart);
+            connection.SimpleConnect(monsterPart);
+        }
+        public void ConnectMonsterPartToConnection(int connectionIndex, MonsterPart monsterPart, int monsterPartConnection)
+        {
+            ConnectMonsterPartToConnection(connections[connectionIndex], monsterPart, monsterPart.connections[monsterPartConnection]);
         }
 
-        public void ConnectMonsterPartToConnection(PartConnection connection, MonsterPart monsterPart)
+        public void ConnectMonsterPartToConnection(PartConnection connection, MonsterPart monsterPart, PartConnection monsterPartConnection)
         {
             connection.ConnectPart(monsterPart);
-            
+            monsterPart.SimpleConnect(this, monsterPartConnection);
         }
         
         public void SetConnected(bool state)
