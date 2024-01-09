@@ -12,12 +12,12 @@ namespace MountableMonster
         {
             connection.SimpleConnect(monsterPart);
         }
-        public void ConnectMonsterPartToConnection(int connectionIndex, MonsterPart monsterPart, int monsterPartConnection)
+        public void GetConnectedToMonsterPart(int connectionIndex, MonsterPart monsterPart, int monsterPartConnection)
         {
-            ConnectMonsterPartToConnection(connections[connectionIndex], monsterPart, monsterPart.connections[monsterPartConnection]);
+            GetConnectedToMonsterPart(connections[connectionIndex], monsterPart, monsterPart.connections[monsterPartConnection]);
         }
 
-        public void ConnectMonsterPartToConnection(PartConnection connection, MonsterPart monsterPart, PartConnection monsterPartConnection)
+        public void GetConnectedToMonsterPart(PartConnection connection, MonsterPart monsterPart, PartConnection monsterPartConnection)
         {
             connection.ConnectPart(monsterPart);
             monsterPart.SimpleConnect(this, monsterPartConnection);

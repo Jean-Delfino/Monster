@@ -43,7 +43,7 @@ namespace MountableMonster
                 var connectToPart = parts[spawnParts[i].connectToPartId];
                 parts[i].transform.SetParent(connectToPart.transform);
 
-                connectToPart.ConnectMonsterPartToConnection(spawnParts[i].connectToConnectionId, parts[i], spawnParts[i].connectionId);
+                connectToPart.GetConnectedToMonsterPart(spawnParts[i].connectToConnectionId, parts[i], spawnParts[i].connectionId);
             }
             
             monsterBodyClone.gameObject.SetActive(true);
