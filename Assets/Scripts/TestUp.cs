@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TestUp : MonoBehaviour
@@ -8,6 +9,11 @@ public class TestUp : MonoBehaviour
     void Update()
     {
         RotateToOppositeUpDirection();
+    }
+
+    private void OnEnable()
+    {
+        print("UP (TARGET/LOOK) = " + lookTarget.up + lookObject.up);
     }
 
     void RotateToOppositeUpDirection()
@@ -28,6 +34,9 @@ public class TestUp : MonoBehaviour
                 // Aplica a rotação ao objeto rotateObject
                 rotateObject.rotation *= rotation;
             }
+            
+            print("NAMES = (TARGET/LOOK)" + lookTarget.name + " " + lookObject.name);
+
         }
     }
 }
