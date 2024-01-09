@@ -13,7 +13,7 @@ public class TestLookAt : MonoBehaviour
         if (basePoint != null && trunkToStack != null)
         {
 
-            trunkPoint.rotation = trunkToStack.rotation = UtilTransform.GetRotationLookingAtTransform(trunkToStack,  basePoint);
+            trunkPoint.rotation = trunkToStack.rotation = UtilTransform.GetRotationLookingTwoUpRotations(trunkToStack,  basePoint);
 
             enabled = false;
         }
