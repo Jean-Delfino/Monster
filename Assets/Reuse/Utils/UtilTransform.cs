@@ -30,6 +30,17 @@ namespace Reuse.Utils
             return Quaternion.FromToRotation(toLook.up, target.up);
         }
 
+        public static Quaternion GetRotationInverseTwoUpRotations(Transform toLook, Transform target)
+        {
+            var upLook = target.up;
+            var upRotate = toLook.up;
+            
+            upLook.Normalize();
+            upRotate.Normalize();
+            
+            return (upLook != upRotate * -1) ? Quaternion.FromToRotation(upRotate, -upLook) : Quaternion.identity;
+        }
+
         public static Quaternion GetRotationLookingTwoRightRotations(Transform toLook, Transform target)
         {
             return Quaternion.FromToRotation(toLook.right, target.right);
