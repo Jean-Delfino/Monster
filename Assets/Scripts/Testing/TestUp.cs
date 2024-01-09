@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TestUp : MonoBehaviour
 {
+#if UNITY_EDITOR
+
     public Transform lookTarget;    // O objeto que você quer que seja olhado
     public Transform rotateObject;  // O objeto que será rotacionado
     public Transform lookObject;
@@ -39,4 +41,5 @@ public class TestUp : MonoBehaviour
 
         }
     }
+#endif
 }

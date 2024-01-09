@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class TestLookAt : MonoBehaviour
 {
+    
+#if UNITY_EDITOR
     public Transform basePoint; 
     public Transform trunkToStack;
     public Transform trunkPoint;
@@ -18,4 +20,6 @@ public class TestLookAt : MonoBehaviour
             enabled = false;
         }
     }
+#endif
+    
 }
