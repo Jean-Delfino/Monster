@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Reuse.Utils;
+using UnityEngine;
 
 namespace MountableMonster
 {
@@ -7,11 +8,6 @@ namespace MountableMonster
         [SerializeField] private PartConnection[] connections;
 
         private bool _isConnected = false;
-        
-        public void SimpleConnect(MonsterPart monsterPart, PartConnection connection)
-        {
-            connection.SimpleConnect(monsterPart);
-        }
         public void GetConnectedToMonsterPart(int connectionIndex, MonsterPart monsterPart, int monsterPartConnection)
         {
             GetConnectedToMonsterPart(connections[connectionIndex], monsterPart, monsterPart.connections[monsterPartConnection]);
@@ -21,6 +17,16 @@ namespace MountableMonster
         {
             connection.ConnectPart(monsterPart);
             monsterPart.SimpleConnect(this, monsterPartConnection);
+            monsterPart.SetConnectionFacingConnection(connection, monsterPartConnection);
+        }
+        public void SimpleConnect(MonsterPart monsterPart, PartConnection connection)
+        {
+            connection.SimpleConnect(monsterPart);
+        }
+
+        private void SetConnectionFacingConnection(PartConnection target, PartConnection toLook)
+        {
+            transform.rotation *= UtilTransform.GetRotationInverseTwoUpRotations(toLook.transform, target.transform);
         }
         
         public void SetConnected(bool state)
