@@ -58,8 +58,8 @@ namespace MountableMonster
         {
             bounds.MaxX = Mathf.Max(visualPartBounds.max.x, bounds.MaxX);
             bounds.MaxY = Mathf.Max(visualPartBounds.max.y, bounds.MaxY);
-            bounds.MinY = Mathf.Max(visualPartBounds.min.y, bounds.MinY);
-            bounds.MinX = Mathf.Max(visualPartBounds.min.x, bounds.MinX);
+            bounds.MinY = Mathf.Min(visualPartBounds.min.y, bounds.MinY);
+            bounds.MinX = Mathf.Min(visualPartBounds.min.x, bounds.MinX);
         }
     }
 }
