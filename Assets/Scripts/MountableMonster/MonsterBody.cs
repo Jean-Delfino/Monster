@@ -9,10 +9,10 @@ namespace MountableMonster
 
         public class BodyExtension
         {        
-            public float MinX = float.MinValue;
+            public float MinX = float.MaxValue;
             public float MaxX = float.MinValue;
             public float MinY = float.MaxValue;
-            public float MaxY = float.MaxValue;
+            public float MaxY = float.MinValue;
         }
         public void SetMainConnection(MonsterPart monsterPart)
         {
