@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partRotation: {x: 0, y: 0, z: -90}
+  sideConnectionsRotation: []
+  sideConnection: 3
 --- !u!1 &2953227115809695623
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partRotation: {x: 0, y: 0, z: 90}
+  sideConnectionsRotation: []
+  sideConnection: 2
 --- !u!1 &6079450224215687525
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +236,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partRotation: {x: 0, y: 0, z: 0}
+  sideConnectionsRotation:
+  - name: Top
+    connection: 0
+    rotation: {x: 0, y: 0, z: 0}
+  - name: Bottom
+    connection: 1
+    rotation: {x: 180, y: 0, z: 0}
+  - name: Left
+    connection: 3
+    rotation: {x: 0, y: 0, z: 90}
+  - name: Right
+    connection: 2
+    rotation: {x: 0, y: 0, z: -90}
+  sideConnection: 1
 --- !u!1 &7474548093165625001
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,3 +358,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partRotation: {x: 0, y: 0, z: 180}
+  sideConnectionsRotation: []
+  sideConnection: 0
