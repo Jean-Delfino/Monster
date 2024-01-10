@@ -7,6 +7,8 @@ namespace MountableMonster
     {
         [SerializeField] private PartConnection connection;
 
+        public PartConnection Connection => connection;
+        
         public class BodyExtension
         {        
             public float MinX = float.MaxValue;

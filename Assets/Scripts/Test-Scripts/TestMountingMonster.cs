@@ -37,8 +37,9 @@ namespace Test_Scripts
                 parts[i] = Instantiate(spawnParts[i].part, monsterBodyClone.transform) as MonsterPart;
             }
 
-            monsterBody.SetMainConnection(parts[0]);
-
+            monsterBodyClone.SetMainConnection(parts[0]);
+            parts[0].transform.SetParent(monsterBodyClone.Connection.transform);
+            
             for (int i = 1; i < parts.Length; i++)
             {
                 var connectToPart = parts[spawnParts[i].connectToPartId];
@@ -50,6 +51,11 @@ namespace Test_Scripts
             }
             
             monsterBodyClone.gameObject.SetActive(true);
+
+            var player = monsterBodyClone.GetComponent<Player>();
+
+            player.SetMonsterBody(monsterBodyClone);
+            player.PrepareNavMesh();
         }
         
 #endif
