@@ -10,16 +10,8 @@ namespace MountableMonster
 
         public void ConnectPart(MonsterPart part)
         {
-            SimpleConnect(part);
-            
-            part.SetConnected(true);
-            part.SetRotation(partRotation);
-            part.SetPosition(transform.position);
-        }
-
-        public void SimpleConnect(MonsterPart part)
-        {
             _connectedPart = part;
+            part.SetConnected(true);
 
         }
     }

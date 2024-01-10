@@ -15,33 +15,27 @@ namespace MountableMonster
 
         public void GetConnectedToMonsterPart(PartConnection connection, MonsterPart monsterPart, PartConnection monsterPartConnection)
         {
-            connection.ConnectPart(monsterPart);
-            monsterPart.SimpleConnect(this, monsterPartConnection);
-            monsterPart.SetConnectionFacingConnection(connection, monsterPartConnection);
+            SimpleConnect(monsterPart, connection); //This getting connected with monster part
+            SimpleConnect(this, monsterPartConnection); //Monster part getting connected with this
+            
+            monsterPart.SetConnectionFacingConnection(connection.transform, monsterPartConnection.transform);
         }
-        public void SimpleConnect(MonsterPart monsterPart, PartConnection connection)
+        private void SimpleConnect(MonsterPart monsterPart, PartConnection connection)
         {
-            connection.SimpleConnect(monsterPart);
+            connection.ConnectPart(monsterPart);
         }
 
-        private void SetConnectionFacingConnection(PartConnection target, PartConnection toLook)
+        private void SetConnectionFacingConnection(Transform target, Transform toLook)
         {
-            transform.rotation *= UtilTransform.GetRotationInverseTwoUpRotations(toLook.transform, target.transform);
+            var partTransform = transform;
+            partTransform.rotation *= UtilTransform.GetRotationInverseTwoUpRotations(toLook, target);
+            partTransform.position += target.position - toLook.position;
         }
-        
+
         public void SetConnected(bool state)
         {
             _isConnected = state;
         }
-
-        public void SetRotation(Vector3 rotation)
-        {
-            transform.rotation = Quaternion.Euler(rotation);
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            transform.position = position;
-        }
+        
     }
 }
