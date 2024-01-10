@@ -341,6 +341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connections:
   - {fileID: 2374186401710360413}
+  visualComponents:
+  - {fileID: 1123968684950693929}
+  - {fileID: 7354054812728850928}
+  - {fileID: 8029657431860933059}
 --- !u!1 &9209806986188289902
 GameObject:
   m_ObjectHideFlags: 0

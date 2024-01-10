@@ -313,6 +313,8 @@ MonoBehaviour:
   - {fileID: 5812134445647147571}
   - {fileID: 4741787623183400537}
   - {fileID: 1408930019645659569}
+  visualComponents:
+  - {fileID: 7916882652626196396}
 --- !u!1 &8948577644594614443
 GameObject:
   m_ObjectHideFlags: 0
