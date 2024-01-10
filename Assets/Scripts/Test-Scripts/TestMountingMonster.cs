@@ -1,7 +1,8 @@
 ﻿using System;
+using MountableMonster;
 using UnityEngine;
 
-namespace MountableMonster
+namespace Test_Scripts
 {
     public class TestMountingMonster : MonoBehaviour
     {
