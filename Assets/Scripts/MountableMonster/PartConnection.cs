@@ -44,5 +44,10 @@ namespace MountableMonster
         {
             return sideConnectionsRotation.FirstOrDefault(e => e.connection == connectionType)!.rotation;
         }
+
+        public MonsterPart GetConnectedPart()
+        {
+            return _connectedPart;
+        }
     }
 }

@@ -36,6 +36,11 @@ namespace MountableMonster
         {
             _isConnected = state;
         }
+
+        public PartConnection[] GetConnections()
+        {
+            return connections;
+        }
         
     }
 }
