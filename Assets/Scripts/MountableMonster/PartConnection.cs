@@ -30,9 +30,10 @@ namespace MountableMonster
         [SerializeField] private SideRotationRotation[] sideConnectionsRotation;
         [SerializeField] private SideConnection sideConnection;
 
-        public SideConnection SideConnection => sideConnection;
-        
         private MonsterPart _connectedPart;
+        public MonsterPart ConnectedPart => _connectedPart;
+
+        public SideConnection SideConnection => sideConnection;
         
         public void ConnectPart(MonsterPart part)
         {
@@ -45,9 +46,5 @@ namespace MountableMonster
             return sideConnectionsRotation.FirstOrDefault(e => e.connection == connectionType)!.rotation;
         }
 
-        public MonsterPart GetConnectedPart()
-        {
-            return _connectedPart;
-        }
     }
 }

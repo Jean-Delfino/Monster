@@ -6,6 +6,10 @@ namespace MountableMonster
     public class MonsterPart : MonoBehaviour
     {
         [SerializeField] private PartConnection[] connections;
+        [SerializeField] private Renderer[] visualComponents;
+        
+        public PartConnection[] Connections => connections;
+        public Renderer[] VisualComponents => visualComponents;
 
         private bool _isConnected = false;
         public void GetConnectedToMonsterPart(int connectionIndex, MonsterPart monsterPart, int monsterPartConnection)
@@ -37,10 +41,5 @@ namespace MountableMonster
             _isConnected = state;
         }
 
-        public PartConnection[] GetConnections()
-        {
-            return connections;
-        }
-        
     }
 }
