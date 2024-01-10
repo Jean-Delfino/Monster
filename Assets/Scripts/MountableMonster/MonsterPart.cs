@@ -32,7 +32,7 @@ namespace MountableMonster
         private void SetConnectionFacingConnection(PartConnection target, PartConnection toLook)
         {
             var partTransform = transform;
-            partTransform.rotation *= Quaternion.Euler(toLook.GetRotation(target.SideConnection));
+            partTransform.rotation *= toLook.GetRotation(target.SideConnection);
             partTransform.position += target.transform.position - toLook.transform.position;
         }
 

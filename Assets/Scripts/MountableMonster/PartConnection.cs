@@ -6,6 +6,7 @@ namespace MountableMonster
 {
     public enum SideConnection
     {
+        None = -1,
         Top = 0,
         Bottom = 1,
         Right = 2,
@@ -41,9 +42,11 @@ namespace MountableMonster
             part.SetConnected(true);
         }
 
-        public Vector3 GetRotation(SideConnection connectionType)
+        public Quaternion GetRotation(SideConnection connectionType)
         {
-            return sideConnectionsRotation.FirstOrDefault(e => e.connection == connectionType)!.rotation;
+            return connectionType!= SideConnection.None ? 
+                Quaternion.Euler(sideConnectionsRotation.FirstOrDefault(e => e.connection == connectionType)!.rotation) :
+                Quaternion.identity;
         }
 
     }
