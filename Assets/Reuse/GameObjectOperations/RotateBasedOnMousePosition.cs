@@ -12,8 +12,8 @@ public class RotateBasedOnMousePosition : MonoBehaviour
     {
         ActualMousePos = Input.mousePosition;
 
-        ActualAngle = (Mathf.Atan2((ActualMousePos.y / ((float)Screen.width / 2)) /  - 1, 
-            (ActualMousePos.x / ((float)Screen.height / 2)) - 1) * Mathf.Rad2Deg) + additionalRotation;
+        ActualAngle = (Mathf.Atan2((ActualMousePos.y / ((float)Screen.height / 2))  - 1, 
+            (ActualMousePos.x / ((float)Screen.width / 2)) - 1) * Mathf.Rad2Deg) + additionalRotation;
         
         transform.rotation = Quaternion.AngleAxis(rotationEndMultiplier * ActualAngle, rotationAxis);
     }
