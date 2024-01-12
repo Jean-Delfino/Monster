@@ -36,5 +36,11 @@ namespace Reuse.Utils
         {
             return Mathf.Sqrt(Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2));
         }
+
+        public static float CalculateAtan2BasedOnConfinedDimension(Vector2 position, Vector2 dimension)
+        {
+            return Mathf.Atan2((position.y / (dimension.y / 2))  - 1, 
+                (position.x / (dimension.x / 2)) - 1);
+        }
     }
 }

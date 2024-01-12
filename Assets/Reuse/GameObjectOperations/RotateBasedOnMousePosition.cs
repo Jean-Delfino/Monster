@@ -1,3 +1,4 @@
+using Reuse.Utils;
 using UnityEngine;
 
 public class RotateBasedOnMousePosition : MonoBehaviour
@@ -8,12 +9,13 @@ public class RotateBasedOnMousePosition : MonoBehaviour
 
     protected Vector3 ActualMousePos;
     protected float ActualAngle;
+
+    private Vector2 screen = new();
     void Update()
     {
-        ActualMousePos = Input.mousePosition;
+        (screen.x, screen.y) = (Screen.width, Screen.height);
 
-        ActualAngle = (Mathf.Atan2((ActualMousePos.y / ((float)Screen.height / 2))  - 1, 
-            (ActualMousePos.x / ((float)Screen.width / 2)) - 1) * Mathf.Rad2Deg) + additionalRotation;
+        ActualAngle = (UtilMathOperations.CalculateAtan2BasedOnConfinedDimension(Input.mousePosition, screen) * Mathf.Rad2Deg) + additionalRotation;
         
         transform.rotation = Quaternion.AngleAxis(rotationEndMultiplier * ActualAngle, rotationAxis);
     }
