@@ -5,6 +5,7 @@ namespace Test_Scripts
 {
     public class PrintBounds : MonoBehaviour
     {
+#if UNITY_EDITOR
         private void OnEnable()
         {
             Renderer childRenderer = GetComponent<Renderer>();
@@ -13,4 +14,5 @@ namespace Test_Scripts
             print("CENTER = " + bounds.center);
         }
     }
+#endif
 }
