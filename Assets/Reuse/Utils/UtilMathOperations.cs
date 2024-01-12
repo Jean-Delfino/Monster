@@ -42,5 +42,10 @@ namespace Reuse.Utils
             return Mathf.Atan2((position.y / (dimension.y / 2))  - 1, 
                 (position.x / (dimension.x / 2)) - 1);
         }
+
+        public static float RoundToClosestLimit(float number, float min, float max)
+        {
+            return number - min < max - number ? min : max;
+        }
     }
 }
