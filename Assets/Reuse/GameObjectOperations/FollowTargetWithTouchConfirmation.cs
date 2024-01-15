@@ -9,7 +9,7 @@ namespace Reuse.GameObjectOperations
 
         public Action TouchedTarget;
 
-        private new void Update()
+        private void Update()
         {
             if(target == null) return;
             
