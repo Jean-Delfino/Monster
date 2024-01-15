@@ -6,54 +6,54 @@ namespace Actors.Components.Attributes
 {
     public class RankModifiers
     {
-        private HashSet<Func<float, float>> _constantlyChangingModifiers = new();
+        private HashSet<Func<Actor, float, float>> _constantlyChangingModifiers = new();
         private SortedDictionary<int, Rank> _modifiers = new();
 
-        public void AddConstantlyChangingModifier(Func<float, float> modifier)
+        public void AddConstantlyChangingModifier(Func<Actor, float, float> modifier)
         {
             _constantlyChangingModifiers.Add(modifier);
         }
         
-        public void RemoveConstantlyChangingModifier(Func<float, float> modifier)
+        public void RemoveConstantlyChangingModifier(Func<Actor, float, float> modifier)
         {
             _constantlyChangingModifiers.Remove(modifier);
         }
 
-        public float ProcessWithConstantlyChangingModifiers(float value)
+        public float ProcessWithConstantlyChangingModifiers(Actor actor, float value)
         {
             if (_constantlyChangingModifiers.Count == 0) return value;
             
             var res = value;
             foreach (var ccModifier in _constantlyChangingModifiers)
             {
-                res = ccModifier(res);
+                res = ccModifier(actor, res);
             }
 
             return res;
         }
 
-        public float AddModifier(float initialValue, int priority, Func<float,float> modifier)
+        public float AddModifier(Actor actor, float initialValue, int priority, Func<Actor, float, float> modifier)
         {
             if(!_modifiers.ContainsKey(priority)) _modifiers.Add(priority, new Rank());
             
             _modifiers[priority].AddModifier(modifier);
-            return RefreshModifiersInPriority(initialValue, priority);
+            return RefreshModifiersInPriority(actor, initialValue, priority);
         }
         
-        public float RemoveModifier(float initialValue, float defaultValue, int priority, Func<float, float> modifier)
+        public float RemoveModifier(Actor actor, float initialValue, float defaultValue, int priority, Func<Actor, float, float> modifier)
         {
             if(!_modifiers.ContainsKey(priority)) return defaultValue;
             
             _modifiers[priority].RemoveModifier(modifier);
-            return RefreshModifiersInPriority(initialValue, priority);
+            return RefreshModifiersInPriority(actor, initialValue, priority);
         }
         
-        private float RefreshModifiersInPriority(float initialValue, int priority)
+        private float RefreshModifiersInPriority(Actor actor, float initialValue, int priority)
         {
             var array = _modifiers.Keys.ToArray(); //This could be saved in memory, but I want to preserve more memory in exchange of performance
             var index = GetPriorityIndex(priority, array); //Priority is always in the array
             
-            return ReCalculateValuesFromPriorityRank(initialValue, array, index);
+            return ReCalculateValuesFromPriorityRank(actor, initialValue, array, index);
         }
         
         private int GetPriorityIndex(int priority, int[] array)
@@ -65,13 +65,13 @@ namespace Actors.Components.Attributes
             return index > 0 ? _modifiers[index - 1].GetCalculateRankValue() : value;
         }
 
-        private float ReCalculateValuesFromPriorityRank(float initialValue, int[] keys, int priorityIndexInKeys)
+        private float ReCalculateValuesFromPriorityRank(Actor actor, float initialValue, int[] keys, int priorityIndexInKeys)
         {
             var lastValue = GetPreviousRankValue(priorityIndexInKeys, initialValue);
 
             for (int i = priorityIndexInKeys; i < keys.Length; i++)
             {
-                lastValue = _modifiers[keys[i]].CalculateRankValue(lastValue);
+                lastValue = _modifiers[keys[i]].CalculateRankValue(actor, lastValue);
             }
 
             return lastValue;

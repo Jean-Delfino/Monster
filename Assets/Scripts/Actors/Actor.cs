@@ -19,7 +19,7 @@ namespace Actors
         public NavMeshAgent Agent => agent;
         public float GetAttributeValue(Attribute attribute)
         {
-            return attributeComponent.GetAttributeValue(attribute);
+            return attributeComponent.GetAttributeValue(this, attribute);
         }
 
         private void Awake()

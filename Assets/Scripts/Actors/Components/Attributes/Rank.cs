@@ -5,25 +5,25 @@ namespace Actors.Components.Attributes
 {
     public class Rank
     {
-        private List<Func<float, float>> _modifiers = new();
+        private List<Func<Actor, float, float>> _modifiers = new();
         private float _rankValue;
 
-        public void AddModifier(Func<float,float> modifier)
+        public void AddModifier(Func<Actor, float, float> modifier)
         {
             _modifiers.Add(modifier);
         }
 
-        public void RemoveModifier(Func<float, float> modifier)
+        public void RemoveModifier(Func<Actor, float, float> modifier)
         {
             _modifiers.Remove(modifier);
         }
 
-        public float CalculateRankValue(float value)
+        public float CalculateRankValue(Actor actor,float value)
         {
             var newValue = value;
             foreach (var mod in _modifiers)
             {
-                newValue = mod(newValue);
+                newValue = mod(actor, newValue);
             }
 
             _rankValue = newValue;

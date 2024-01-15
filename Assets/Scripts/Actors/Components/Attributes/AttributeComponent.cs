@@ -25,9 +25,22 @@ namespace Actors.Components.Attributes
             }
         }
         
+        [Serializable]
+        public class DependentAttribute
+        {
+#if UNITY_EDITOR
+            public string name;
+#endif
+            public Attribute attribute;
+            public Modifier modifier;
+        }
         
         [SerializeField] protected AttributeDefinition[] baseAttributes;
+
+        [SerializeField] private DependentAttribute[] dependentAttributes;
+        
         private readonly Dictionary<Attribute, AttributeDefinition> _attributesLookup = new();
+        
 
         public override void Setup()
         {
@@ -39,41 +52,43 @@ namespace Actors.Components.Attributes
                 description.groupAttribute.Setup();
                 _attributesLookup.Add(att, description);
             }
+
+            SetAllAttributesDependents();
         }
         
-        public float GetAttributeValue(Attribute attribute)
+        public float GetAttributeValue(Actor actor, Attribute attribute)
         {
             if (!_attributesLookup.ContainsKey(attribute)) return -1;
 
             var groupValue = _attributesLookup[attribute].groupAttribute;
-            var value = groupValue.GetValueAfterConstantlyChangingModifiers();
+            var value = groupValue.GetValueAfterConstantlyChangingModifiers(actor);
 
             if (value != groupValue.GetValue()) SetAttributesDependents(attribute);
             
             return value;
         }
 
-        public void AddModifier(Attribute attribute, Modifier modifier)
+        public void AddModifier(Actor actor, Attribute attribute, Modifier modifier)
         {
             if (!_attributesLookup.ContainsKey(attribute)) return;
 
             var groupValue =  _attributesLookup[attribute].groupAttribute;
-            ExecuteModifierChange(groupValue.AddModifier, groupValue, attribute, modifier);
+            ExecuteModifierChange(groupValue.AddModifier, actor, groupValue, attribute, modifier);
         }
 
-        public void RemoveModifier(Attribute attribute, Modifier modifier)
+        public void RemoveModifier(Actor actor, Attribute attribute, Modifier modifier)
         {
             if (!_attributesLookup.ContainsKey(attribute)) return;
             
             var groupValue =  _attributesLookup[attribute].groupAttribute;
-            ExecuteModifierChange(groupValue.RemoveModifier, groupValue, attribute, modifier);
+            ExecuteModifierChange(groupValue.RemoveModifier, actor, groupValue, attribute, modifier);
         }
 
-        private void ExecuteModifierChange(Action<int, Func<float, float>> action, AttributeGroup group, Attribute attribute, Modifier modifier)
+        private void ExecuteModifierChange(Action<Actor, int, Func<Actor, float, float>> action, Actor actor, AttributeGroup group, Attribute attribute, Modifier modifier)
         {
             var value = group.GetValue();
             
-            action.Invoke(modifier.Priority, modifier.GetModifier());
+            action.Invoke(actor, modifier.Priority, modifier.GetModifier());
 
             if (value != group.GetValue()) SetAttributesDependents(attribute);
         }
@@ -85,6 +100,10 @@ namespace Actors.Components.Attributes
         
         private void SetAllAttributesDependents()
         {
+            foreach (var att in dependentAttributes)
+            {
+                
+            }
         }
     }
 }
