@@ -4,11 +4,16 @@ using Attribute = Actors.Components.Attributes.Attribute;
 
 namespace Actors.Components.Modifiers
 {
+    [CreateAssetMenu(menuName = "Monster/Game-Design/Modifiers/Attributes Modifier")]
+
     public class AttributeModifier : Modifier
     {
         [SerializeField] private Attribute lookForAttribute;
         [SerializeField] private NormalOperations operationInAttribute;
         [SerializeField] private NormalOperations operationWithValue;
+
+        public Attribute LookForAttribute => lookForAttribute;
+        
         public override Func<Actor, float, float> GetModifier()
         {
             return GetModifiedByAttributeValue;

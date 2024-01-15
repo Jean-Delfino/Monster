@@ -1,8 +1,11 @@
 ﻿using System;
+using Actors.Components.Modifiers;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Actors.Components.Attributes
 {
+
     [Serializable]
     public class AttributeGroup
     {
@@ -18,24 +21,29 @@ namespace Actors.Components.Attributes
             _attributeValue = value;
         }
 
-        public void AddModifier(int priority, Func<float, float> modifier)
+        public void AddModifier(Actor actor, int priority, Func<Actor, float, float> modifier)
         {
-            _attributeValue = _rankModifiers.AddModifier(value, priority, modifier);
+            _attributeValue = _rankModifiers.AddModifier(actor, value, priority, modifier);
         }
 
-        public void RemoveModifier(int priority, Func<float, float> modifier)
+        public void RemoveModifier(Actor actor, int priority, Func<Actor, float, float> modifier)
         {
-            _attributeValue = _rankModifiers.RemoveModifier(value,_attributeValue, priority, modifier);
+            _attributeValue = _rankModifiers.RemoveModifier(actor, value,_attributeValue, priority, modifier);
         }
 
-        public void AddConstantlyChangingModifier(Func<float, float> modifier)
+        public void AddConstantlyChangingModifier(Func<Actor, float, float> modifier)
         {
             _rankModifiers.AddConstantlyChangingModifier(modifier);
         }
 
-        public void RemoveConstantlyChangingModifier(Func<float, float> modifier)
+        public void RemoveConstantlyChangingModifier(Func<Actor, float, float> modifier)
         {
             _rankModifiers.RemoveConstantlyChangingModifier(modifier);
+        }
+
+        public void RefreshAt(Actor actor, int priority)
+        {
+            _rankModifiers.RefreshModifiersInPriority(actor, value, priority);
         }
         
         public float GetValue()
@@ -43,9 +51,9 @@ namespace Actors.Components.Attributes
             return _attributeValue;
         }
 
-        public float GetValueAfterConstantlyChangingModifiers()
+        public float GetValueAfterConstantlyChangingModifiers(Actor actor)
         {
-            return _rankModifiers.ProcessWithConstantlyChangingModifiers(_attributeValue);
+            return _rankModifiers.ProcessWithConstantlyChangingModifiers(actor, _attributeValue);
         }
     }
 }

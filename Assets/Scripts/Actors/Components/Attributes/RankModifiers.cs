@@ -48,7 +48,7 @@ namespace Actors.Components.Attributes
             return RefreshModifiersInPriority(actor, initialValue, priority);
         }
         
-        private float RefreshModifiersInPriority(Actor actor, float initialValue, int priority)
+        public float RefreshModifiersInPriority(Actor actor, float initialValue, int priority)
         {
             var array = _modifiers.Keys.ToArray(); //This could be saved in memory, but I want to preserve more memory in exchange of performance
             var index = GetPriorityIndex(priority, array); //Priority is always in the array

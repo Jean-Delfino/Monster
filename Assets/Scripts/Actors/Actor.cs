@@ -30,8 +30,8 @@ namespace Actors
 
         private void Start()
         {
-            brainComponent.Setup();
-            attributeComponent.Setup();
+            brainComponent.Setup(this);
+            attributeComponent.Setup(this);
 
             StartCoroutine(brainComponent.ExecuteComponent(this));
         }

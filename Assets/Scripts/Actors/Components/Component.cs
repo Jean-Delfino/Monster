@@ -4,7 +4,7 @@ namespace Actors.Components
 {
     public abstract class Component : ScriptableObject 
     {
-        public virtual void Setup() { }
+        public virtual void Setup(Actor actor) { }
 
         public T GetCopy<T>() where T : Component
         {

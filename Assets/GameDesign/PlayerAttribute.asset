@@ -19,3 +19,13 @@ MonoBehaviour:
       value: 5
     minValue: 0
     maxValue: 0
+  - name: Agility
+    groupAttribute:
+      attribute: 4
+      value: 3
+    minValue: 0
+    maxValue: 0
+  dependentAttributes:
+  - name: Agility Increases Speed
+    attribute: 10
+    modifier: {fileID: 11400000, guid: 9760c498d26c20d429b469dd0c56f1a8, type: 2}
