@@ -25,6 +25,7 @@ namespace Actors.Components.Attributes
             }
         }
         
+        
         [SerializeField] protected AttributeDefinition[] baseAttributes;
         private readonly Dictionary<Attribute, AttributeDefinition> _attributesLookup = new();
 
